@@ -19,7 +19,7 @@ public class ProductsImpl implements Methods {
     }
 
     public void print() {
-        System.out.printf("%s %30s %30s %30s %30s",
+        System.out.printf("%10s %20s %20s %20s %20s",
                         this.productId,
                         this.productName,
                         this.productStartPrice,

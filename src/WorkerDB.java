@@ -11,7 +11,6 @@ public class WorkerDB {
     public List<String> getPreparedStatementQuery(String query, int a, int b, Connection connection) throws SQLException {
 
         List listQuery = new ArrayList();
-        //this.connection = DriverManager.getConnection(this.url + "/" + this.db, this.user, this.pass);
 
         this.preparedStatement = connection.prepareStatement(query);
         this.preparedStatement.setInt(1, a);
@@ -36,8 +35,6 @@ public class WorkerDB {
 
         resultQuery.close();
         preparedStatement.close();
-        //connection.close();
-
         return listQuery;
     }
 

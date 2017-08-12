@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        String url = "jdbc:mysql://localhost:3306";
+        String url = "jdbc:mysql://127.0.0.1:3306";
         String db = "auction_db";
         String user = "dpinchuk";
         String pass = "dmss111278";
@@ -20,29 +20,32 @@ public class Main {
 
         Connection connection = DriverManager.getConnection(url + "/" + db, user, pass);
 
-        System.out.println("Products");
-        workerDB.getPreparedStatementQuery("SELECT * FROM products WHERE product_id > ? AND product_id < ?", 0, 6, connection).
+        System.out.println("Table [Products] ----------------------------------------------------------------------------");
+        workerDB.getPreparedStatementQuery("SELECT * FROM products WHERE product_id > ? AND product_id < ?",
+                0, 8, connection).
                 forEach(str -> products.add(new ProductsImpl(str)));
         products.forEach(item -> item.print());
-        System.out.println("------------------------------------------------------------------------------------------ \n");
+        System.out.println();
 
-        System.out.println("Sellers");
-        workerDB.getPreparedStatementQuery("SELECT * FROM sellers WHERE seller_id > ? AND seller_id < ?", 0, 4, connection).
+        System.out.println("Table [Sellers] -----------------------------------------------------------------------------");
+        workerDB.getPreparedStatementQuery("SELECT * FROM sellers WHERE seller_id > ? AND seller_id < ?",
+                0, 4, connection).
                 forEach(str -> sellers.add(new SellersImpl(str)));
         sellers.forEach(item -> item.print());
-        System.out.println("------------------------------------------------------------------------------------------ \n");
+        System.out.println();
 
-        System.out.println("Buyers");
-        workerDB.getPreparedStatementQuery("SELECT * FROM buyers WHERE buyer_id > ? AND buyer_id < ?", 0, 5, connection).
+        System.out.println("Table [Buyers] ------------------------------------------------------------------------------");
+        workerDB.getPreparedStatementQuery("SELECT * FROM buyers WHERE buyer_id > ? AND buyer_id < ?",
+                0, 5, connection).
                 forEach(str -> buyers.add(new BuyersImpl(str)));
         buyers.forEach(item -> item.print());
-        System.out.println("------------------------------------------------------------------------------------------\n");
+        System.out.println();
 
-        System.out.println("Bids");
-        workerDB.getPreparedStatementQuery("SELECT * FROM bids WHERE bid_id > ? AND bid_id < ?", 0, 5, connection).
+        System.out.println("Table [Bids] --------------------------------------------------------------------------------");
+        workerDB.getPreparedStatementQuery("SELECT * FROM bids WHERE bid_id > ? AND bid_id < ?",
+                0, 5, connection).
                 forEach(str -> bids.add(new BidsImpl(str)));
         bids.forEach(item -> item.print());
-
 
         connection.close();
     }

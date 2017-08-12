@@ -19,7 +19,7 @@ public class BidsImpl implements Methods {
     }
 
     public void print() {
-        System.out.printf("%s %20s %20s %20s %20s",
+        System.out.printf("%10s %20s %20s %20s %20s",
                         this.bidId,
                         this.bidStep,
                         this.bidCurrent,
