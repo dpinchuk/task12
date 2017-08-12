@@ -22,7 +22,7 @@ public class Main {
 
         System.out.println("Table [Products] ----------------------------------------------------------------------------");
         workerDB.getPreparedStatementQuery("SELECT * FROM products WHERE product_id > ? AND product_id < ?",
-                0, 8, connection).
+                0, 2, connection).
                 forEach(str -> products.add(new ProductsImpl(str)));
         products.forEach(item -> item.print());
         System.out.println();
