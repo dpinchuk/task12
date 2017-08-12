@@ -36,6 +36,20 @@ public class WorkerDBTest {
     }
 
     @Test
+    public void testIsReadOnly() throws SQLException {
+        Connection connection = DriverManager.getConnection(url + "/" + db, user, pass);
+        assertFalse(connection.isReadOnly());
+        connection.close();
+    }
+
+    @Test
+    public void testGetWarnings() throws SQLException {
+        Connection connection = DriverManager.getConnection(url + "/" + db, user, pass);
+        assertNull(connection.getWarnings());
+        connection.close();
+    }
+
+    @Test
     public void testConnection() throws SQLException {
         Connection connection = DriverManager.getConnection(url + "/" + db, user, pass);
         connection.close();
