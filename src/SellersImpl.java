@@ -7,7 +7,7 @@ public class SellersImpl implements Methods {
 
     private final String[] listNote;
 
-    public SellersImpl (String string) {
+    public SellersImpl(String string) {
         listNote = getData(string);
         this.sellerId = listNote[0];
         this.sellertName = listNote[1];

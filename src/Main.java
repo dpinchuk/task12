@@ -19,6 +19,7 @@ public class Main {
         WorkerDB workerDB = new WorkerDB();
 
         Connection connection = DriverManager.getConnection(url + "/" + db, user, pass);
+        System.out.println(connection.getWarnings());
 
         System.out.println("Table [Products] ----------------------------------------------------------------------------");
         workerDB.getPreparedStatementQuery("SELECT * FROM products WHERE product_id > ? AND product_id < ?",
