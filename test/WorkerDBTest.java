@@ -121,7 +121,7 @@ public class WorkerDBTest {
         PreparedStatement preparedStatement;
         ResultSet resultQuery;
         List listQuery = new ArrayList();
-        List testListQuery = Arrays.asList("1|Dima|Pinchuk|","2|Evgeniy|Tyapunoff|");
+        List testListQuery = Arrays.asList("1|Dima|Pinchuk|", "2|Evgeniy|Tyapunoff|");
         String string;
 
         connection = DriverManager.getConnection(url + "/" + db, user, pass);
