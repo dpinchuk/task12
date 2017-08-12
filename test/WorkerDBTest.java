@@ -22,6 +22,20 @@ public class WorkerDBTest {
     }
 
     @Test
+    public void testIsClosedPositive() throws SQLException {
+        Connection connection = DriverManager.getConnection(url + "/" + db, user, pass);
+        connection.close();
+        assertTrue(connection.isClosed());
+    }
+
+    @Test
+    public void testIsClosedNegative() throws SQLException {
+        Connection connection = DriverManager.getConnection(url + "/" + db, user, pass);
+        assertFalse(connection.isClosed());
+        connection.close();
+    }
+
+    @Test
     public void testConnection() throws SQLException {
         Connection connection = DriverManager.getConnection(url + "/" + db, user, pass);
         connection.close();
@@ -31,6 +45,21 @@ public class WorkerDBTest {
     @Test(expected = SQLException.class)
     public void testFakeDB() throws SQLException {
         Connection connection = DriverManager.getConnection(url + "/" + "fake_db", user, pass);
+    }
+
+    @Test(expected = SQLException.class)
+    public void testFakeUser() throws SQLException {
+        Connection connection = DriverManager.getConnection(url + "/" + db, "fakeUser", pass);
+    }
+
+    @Test(expected = SQLException.class)
+    public void testFakePass() throws SQLException {
+        Connection connection = DriverManager.getConnection(url + "/" + db, user, "fakePassword");
+    }
+
+    @Test(expected = SQLException.class)
+    public void testFake() throws SQLException {
+        Connection connection = DriverManager.getConnection(null, null, null);
     }
 
     @Test
