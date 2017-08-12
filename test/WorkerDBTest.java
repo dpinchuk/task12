@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.*;
@@ -65,6 +66,118 @@ public class WorkerDBTest {
             listQuery.add(string);
         }
         assertEquals("1|Table-1890|2000|null|1|", listQuery.get(0));
+
+        resultQuery.close();
+        preparedStatement.close();
+        connection.close();
+    }
+
+    @Test
+    public void testTableSelers() throws SQLException {
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet resultQuery;
+        List listQuery = new ArrayList();
+        List testListQuery = Arrays.asList("1|Dima|Pinchuk|","2|Evgeniy|Tyapunoff|");
+        String string;
+
+        connection = DriverManager.getConnection(url + "/" + db, user, pass);
+        String query = "SELECT * FROM sellers";
+        preparedStatement = connection.prepareStatement(query);
+
+        resultQuery = preparedStatement.executeQuery();
+        int columnCount = resultQuery.getMetaData().getColumnCount();
+
+        string = "";
+        for (int i = 1; i <= columnCount; i++) {
+            string += resultQuery.getMetaData().getColumnName(i) + "|";
+        }
+        assertEquals(3, columnCount);
+        assertEquals("seller_id|seller_name|seller_lastname|", string);
+
+        while (resultQuery.next()) {
+            string = "";
+            for (int i = 1; i <= columnCount; i++) {
+                string += resultQuery.getString(i) + "|";
+            }
+            listQuery.add(string);
+        }
+        assertEquals(testListQuery, listQuery);
+
+        resultQuery.close();
+        preparedStatement.close();
+        connection.close();
+    }
+
+    @Test
+    public void testTableBuyers() throws SQLException {
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet resultQuery;
+        List listQuery = new ArrayList();
+        List testListQuery = Arrays.asList("Iosiph|", "Vladimir|", "Lev|", "Adolf|");
+        String string;
+
+        connection = DriverManager.getConnection(url + "/" + db, user, pass);
+        String query = "SELECT buyer_name FROM buyers";
+        preparedStatement = connection.prepareStatement(query);
+
+        resultQuery = preparedStatement.executeQuery();
+        int columnCount = resultQuery.getMetaData().getColumnCount();
+
+        string = "";
+        for (int i = 1; i <= columnCount; i++) {
+            string += resultQuery.getMetaData().getColumnName(i) + "|";
+        }
+        assertEquals(1, columnCount);
+        assertEquals("buyer_name|", string);
+
+        while (resultQuery.next()) {
+            string = "";
+            for (int i = 1; i <= columnCount; i++) {
+                string += resultQuery.getString(i) + "|";
+            }
+            listQuery.add(string);
+        }
+        assertEquals(testListQuery, listQuery);
+
+        resultQuery.close();
+        preparedStatement.close();
+        connection.close();
+    }
+
+    @Test
+    public void testTableBids() throws SQLException {
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet resultQuery;
+        List listQuery = new ArrayList();
+        List testListQuery = Arrays.asList("1|100|2200|4|1|", "2|50|1250|1|2|",
+                "3|1000|12000|3|7|", "4|100|2200|4|4|", "5|100|4000|2|3|");
+        String string;
+
+        connection = DriverManager.getConnection(url + "/" + db, user, pass);
+        String query = "SELECT * FROM bids";
+        preparedStatement = connection.prepareStatement(query);
+
+        resultQuery = preparedStatement.executeQuery();
+        int columnCount = resultQuery.getMetaData().getColumnCount();
+
+        string = "";
+        for (int i = 1; i <= columnCount; i++) {
+            string += resultQuery.getMetaData().getColumnName(i) + "|";
+        }
+        assertEquals(5, columnCount);
+        assertEquals("bid_id|bid_step|bid_current|buyer_id|product_id|", string);
+
+        while (resultQuery.next()) {
+            string = "";
+            for (int i = 1; i <= columnCount; i++) {
+                string += resultQuery.getString(i) + "|";
+            }
+            listQuery.add(string);
+        }
+        assertEquals(testListQuery, listQuery);
 
         resultQuery.close();
         preparedStatement.close();
